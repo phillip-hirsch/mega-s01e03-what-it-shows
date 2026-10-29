@@ -1,0 +1,70 @@
+---
+layout: runbook
+title: '#4471 · three problems, not one'
+owner: Phillip Hirsch
+status: open
+reviewed: 2026-10-28
+signature: Phillip Hirsch
+tickets:
+  parser: https://github.com/phillip-hirsch/mega-s01e03-what-it-shows/issues/1
+  hint: https://github.com/phillip-hirsch/mega-s01e03-what-it-shows/issues/2
+  one-day: https://github.com/phillip-hirsch/mega-s01e03-what-it-shows/issues/3
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+[#4471](/kb/incidents/4471) is marked known, with one fix queued. Those reports describe three
+different bugs. The desk merged them because their subject lines matched
+([decision 0001](/kb/decisions/0001-dedupe-by-subject)), and the subject says nothing about the cause.
+Fixing the parser closes only the first one.
+
+<Callout kind="warn">
+Do not close #4471 when the parser fix ships. The other two problems keep coming in, and each
+one now has its own ticket.
+</Callout>
+
+## The split
+
+<ProblemTable ticket={4471} {tickets} />
+
+Counts are unique reports. The export repeats some of them across pages, so they are counted once by id.
+
+## parser: the shared parser reads dates month first
+
+Every product reads dates through one shared parser, and it reads month first. All of our tenants
+write the day first, so any date where both numbers are 12 or less comes out with day and month
+swapped: 2 December becomes 12 February. This comes in through the app, by email, and through
+booking-v2 forms. It is what #4471 says it is.
+
+## hint: booking-v3 prints the wrong format under its date field
+
+booking-v3 prints `MM/DD/YYYY` under the date field. People type what the hint tells them, month
+first, and the form reads it the tenant's way, day first. The result looks the same as a parser
+flip, but the bug is in the form. The parser fix leaves it as it is. Only booking-v3 tenants
+get it, and only through their booking form. The desk's own table on #4471 already marks these
+as *not this ticket*.
+
+Intake tags do not help here. They are guessed from the reporter's browser, so an `en-US` browser
+gets tagged `hint` wherever its tenant is. Go by tenant and channel ([triage](/kb/triage/dedupe)).
+
+## one-day: the date moves by one day
+
+These reports are not a month flip. The day moves by one: Tuesday shows as Monday; a client in
+Lisbon and a client in Toronto get different days for the same meeting; an invite arrives before
+the booking was made; bookings in one month are one day off. That points at time zones when the
+invite is written, not at how a date is read. The desk noted them as a one-day move
+(`desk-notes.json`). The #4471 table counts them under `parser` by tenant, so the parser fix
+would leave them open.
+
+## For the desk
+
+- A big ticket can be several bugs that share a subject line. Before you mark one known, split it
+  by cause, not by subject.
+- When a cause gets a fix, close only the reports of that cause.
+- Decision 0001 merges on subject alone. It needs a new record that merges on cause.
+
+<RenderStamp {signature} />

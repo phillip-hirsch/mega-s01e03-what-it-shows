@@ -1,0 +1,27 @@
+{
+  "name": "support-kb",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "imports": {
+    "#lib/kb/causes": "./src/lib/kb/causes.ts",
+    "#lib/kb/locales": "./src/lib/kb/locales.ts",
+    "#lib/kb/staleness": "./src/lib/kb/staleness.ts",
+    "#lib/kb/desk-ref": "./src/lib/kb/desk-ref.ts",
+    "#lib/kb/dedupe-cases": "./src/lib/kb/dedupe-cases.ts",
+    "#lib/*": "./src/lib/*"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-static": "4.0.0",
+    "@sveltejs/kit": "3.1.0",
+    "@sveltejs/vite-plugin-svelte": "7.3.1",
+    "mdsvex": "0.12.8",
+    "svelte": "5.57.3",
+    "typescript": "^6.0.3",
+    "vite": "8.3.5"
+  }
+}

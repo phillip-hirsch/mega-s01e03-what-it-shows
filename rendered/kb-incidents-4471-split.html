@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../../_app/immutable/entry/start.CH5w6lId.js" rel="modulepreload">
+		<link href="../../../_app/immutable/entry/payload.DSmR2FwN.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/CRzLMJPS.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/B2Ul7l_u.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/BCPXOG7W.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/Dh1V97Jm.js" rel="modulepreload">
+		<link href="../../../_app/immutable/entry/app.DJuajS4U.js" rel="modulepreload">
+		<link href="../../../_app/immutable/nodes/0.C9KfiiPz.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/DK3Fl9T5.js" rel="modulepreload">
+		<link href="../../../_app/immutable/nodes/5.DDH9_3K4.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/yplmz71L.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/BTPwLomz.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/CVBzP17p.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/BIy4WKJS.js" rel="modulepreload">
+		<!--e2jw2j--><!----><title>#4471 · three problems, not one · support kb</title>
+		<link href="../../../_app/immutable/assets/runbook.COyw0cbZ.css" rel="stylesheet">
+		<link href="../../../_app/immutable/assets/Callout.AbLv9dM_.css" rel="stylesheet">
+		<link href="../../../_app/immutable/assets/_page.Bvt1unkN.css" rel="stylesheet">
+  </head>
+  <body>
+    <div style="display: contents"><!--[--><!--[--><!--[0--><!--[--><!--[--><!--[-1--><!--[--><div class="kb svelte-e2jw2j"><header><a class="crumb svelte-e2jw2j" href="/kb">support desk · kb</a> <h1 class="svelte-e2jw2j">#4471 · three problems, not one</h1> <p class="meta svelte-e2jw2j"><span>owner <b>Phillip Hirsch</b></span> <span class="status open svelte-e2jw2j">open</span> <span class="svelte-e2jw2j">reviewed 2026-10-28 · 1 days ago</span></p></header> <!--[-1--><!--]--> <main><p><a href="/kb/incidents/4471">#4471</a> is marked known, with one fix queued. Those reports describe three
+different bugs. The desk merged them because their subject lines matched
+(<a href="/kb/decisions/0001-dedupe-by-subject">decision 0001</a>), and the subject says nothing about the cause.
+Fixing the parser closes only the first one.</p> <aside class="warn svelte-17bri61"><!---->Do not close #4471 when the parser fix ships. The other two problems keep coming in, and each
+one now has its own ticket.<!----></aside><!----> <h2>The split</h2> <p class="sum svelte-1op6c6"><strong>412</strong> reports in #4471 · <strong>3</strong> problems <!--[-1--><!--]--></p> <table><thead><tr><th>problem</th><th>reports</th><th>tenants</th><th>came in by</th><th>seen</th><th>ticket</th></tr></thead><tbody><!--[--><tr><td><code>parser</code><br/><span class="label svelte-1op6c6">shared parser reads day-first dates month first</span></td><td>374</td><td>11</td><td class="small svelte-1op6c6">app ×202 · email ×147 · form ×25</td><td class="small svelte-1op6c6">2026-04-01 → 2026-10-04</td><td><!--[0--><a href="https://github.com/phillip-hirsch/mega-s01e03-what-it-shows/issues/1">issue #1</a><!--]--></td></tr><tr><td><code>hint</code><br/><span class="label svelte-1op6c6">booking-v3 form hints MM/DD/YYYY to day-first tenants</span></td><td>33</td><td>3</td><td class="small svelte-1op6c6">form ×33</td><td class="small svelte-1op6c6">2026-04-17 → 2026-09-22</td><td><!--[0--><a href="https://github.com/phillip-hirsch/mega-s01e03-what-it-shows/issues/2">issue #2</a><!--]--></td></tr><tr><td><code>one-day</code><br/><span class="label svelte-1op6c6">date moves by one day, not a month flip</span></td><td>5</td><td>5</td><td class="small svelte-1op6c6">email ×3 · app ×2</td><td class="small svelte-1op6c6">2026-04-02 → 2026-10-04</td><td><!--[0--><a href="https://github.com/phillip-hirsch/mega-s01e03-what-it-shows/issues/3">issue #3</a><!--]--></td></tr><!--]--></tbody></table><!----> <p>Counts are unique reports. The export repeats some of them across pages, so they are counted once by id.</p> <h2>parser: the shared parser reads dates month first</h2> <p>Every product reads dates through one shared parser, and it reads month first. All of our tenants
+write the day first, so any date where both numbers are 12 or less comes out with day and month
+swapped: 2 December becomes 12 February. This comes in through the app, by email, and through
+booking-v2 forms. It is what #4471 says it is.</p> <h2>hint: booking-v3 prints the wrong format under its date field</h2> <p>booking-v3 prints <code>MM/DD/YYYY</code> under the date field. People type what the hint tells them, month
+first, and the form reads it the tenant’s way, day first. The result looks the same as a parser
+flip, but the bug is in the form. The parser fix leaves it as it is. Only booking-v3 tenants
+get it, and only through their booking form. The desk’s own table on #4471 already marks these
+as <em>not this ticket</em>.</p> <p>Intake tags do not help here. They are guessed from the reporter’s browser, so an <code>en-US</code> browser
+gets tagged <code>hint</code> wherever its tenant is. Go by tenant and channel (<a href="/kb/triage/dedupe">triage</a>).</p> <h2>one-day: the date moves by one day</h2> <p>These reports are not a month flip. The day moves by one: Tuesday shows as Monday; a client in
+Lisbon and a client in Toronto get different days for the same meeting; an invite arrives before
+the booking was made; bookings in one month are one day off. That points at time zones when the
+invite is written, not at how a date is read. The desk noted them as a one-day move
+(<code>desk-notes.json</code>). The #4471 table counts them under <code>parser</code> by tenant, so the parser fix
+would leave them open.</p> <h2>For the desk</h2> <ul><li>A big ticket can be several bugs that share a subject line. Before you mark one known, split it
+by cause, not by subject.</li> <li>When a cause gets a fix, close only the reports of that cause.</li> <li>Decision 0001 merges on subject alone. It needs a new record that merges on cause.</li></ul> <!--[0--><p class="stamp svelte-1280m42">desk ref <b class="svelte-1280m42">DR-YCGR-AM0M</b></p><!--]--><!----><!----></main> <footer class="svelte-e2jw2j">Pages are written by people. Tables and charts are built from data at render time.</footer></div><!--]--><!--]--><!--]--><!----><!--]--><!--]--><!--]--><!----> <!--[-1--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_1feakgv = {
+						base: new URL("../../..", location).pathname.slice(0, -1),
+						version: "1793240126656"
+					};
+
+					const element = document.currentScript.parentElement;
+
+					import("../../../_app/immutable/entry/start.CH5w6lId.js").then(async (kit) => {
+						kit.init(__sveltekit_1feakgv);
+						const app = await import("../../../_app/immutable/entry/app.DJuajS4U.js");
+						kit.start(app, element, {
+							node_ids: [0, 5],
+							data: [null,null],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+  </body>
+</html>
