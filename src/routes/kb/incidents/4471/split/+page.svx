@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 · three problems, not one'
 owner: Phillip Hirsch
-status: open
+status: closed
 reviewed: 2026-10-28
 signature: Phillip Hirsch
 tickets:
@@ -17,14 +17,17 @@ tickets:
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-[#4471](/kb/incidents/4471) is marked known, with one fix queued. Those reports describe three
+[#4471](/kb/incidents/4471) was marked known, with one fix queued. Its reports describe three
 different bugs. The desk merged them because their subject lines matched
 ([decision 0001](/kb/decisions/0001-dedupe-by-subject)), and the subject says nothing about the cause.
-Fixing the parser closes only the first one.
+The parser fix covers only the first one.
 
-<Callout kind="warn">
-Do not close #4471 when the parser fix ships. The other two problems keep coming in, and each
-one now has its own ticket.
+<Callout>
+Engineering closed #4471 on 5 October. <code>parser</code> is fixed
+(<code>fix(dates): parse dd/mm for eu locales</code>), and its ticket is closed. <code>hint</code> won't be
+fixed because the booking-v3 form is retired, so its ticket is closed as not planned. The #4471 work
+did not cover <code>one-day</code>, and its ticket is closed as not planned too. If a one-day move
+comes in again, open a new ticket for it. Do not merge it into #4471.
 </Callout>
 
 ## The split
