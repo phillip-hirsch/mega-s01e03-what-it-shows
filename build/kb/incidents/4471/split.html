@@ -9,11 +9,11 @@
 		<link href="../../../_app/immutable/chunks/B2Ul7l_u.js" rel="modulepreload">
 		<link href="../../../_app/immutable/chunks/BCPXOG7W.js" rel="modulepreload">
 		<link href="../../../_app/immutable/chunks/Dh1V97Jm.js" rel="modulepreload">
-		<link href="../../../_app/immutable/entry/app.DJuajS4U.js" rel="modulepreload">
+		<link href="../../../_app/immutable/entry/app.CDCAZ6tS.js" rel="modulepreload">
 		<link href="../../../_app/immutable/nodes/0.C9KfiiPz.js" rel="modulepreload">
 		<link href="../../../_app/immutable/chunks/DK3Fl9T5.js" rel="modulepreload">
-		<link href="../../../_app/immutable/nodes/5.DDH9_3K4.js" rel="modulepreload">
-		<link href="../../../_app/immutable/chunks/yplmz71L.js" rel="modulepreload">
+		<link href="../../../_app/immutable/nodes/5.B7EKPqgE.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/G0js2YUj.js" rel="modulepreload">
 		<link href="../../../_app/immutable/chunks/BTPwLomz.js" rel="modulepreload">
 		<link href="../../../_app/immutable/chunks/CVBzP17p.js" rel="modulepreload">
 		<link href="../../../_app/immutable/chunks/BIy4WKJS.js" rel="modulepreload">
@@ -27,7 +27,7 @@
 different bugs. The desk merged them because their subject lines matched
 (<a href="/kb/decisions/0001-dedupe-by-subject">decision 0001</a>), and the subject says nothing about the cause.
 Fixing the parser closes only the first one.</p> <aside class="warn svelte-17bri61"><!---->Do not close #4471 when the parser fix ships. The other two problems keep coming in, and each
-one now has its own ticket.<!----></aside><!----> <h2>The split</h2> <p class="sum svelte-1op6c6"><strong>412</strong> reports in #4471 · <strong>3</strong> problems <!--[-1--><!--]--></p> <table><thead><tr><th>problem</th><th>reports</th><th>tenants</th><th>came in by</th><th>seen</th><th>ticket</th></tr></thead><tbody><!--[--><tr><td><code>parser</code><br/><span class="label svelte-1op6c6">shared parser reads day-first dates month first</span></td><td>374</td><td>11</td><td class="small svelte-1op6c6">app ×202 · email ×147 · form ×25</td><td class="small svelte-1op6c6">2026-04-01 → 2026-10-04</td><td><!--[0--><a href="https://github.com/phillip-hirsch/mega-s01e03-what-it-shows/issues/1">issue #1</a><!--]--></td></tr><tr><td><code>hint</code><br/><span class="label svelte-1op6c6">booking-v3 form hints MM/DD/YYYY to day-first tenants</span></td><td>33</td><td>3</td><td class="small svelte-1op6c6">form ×33</td><td class="small svelte-1op6c6">2026-04-17 → 2026-09-22</td><td><!--[0--><a href="https://github.com/phillip-hirsch/mega-s01e03-what-it-shows/issues/2">issue #2</a><!--]--></td></tr><tr><td><code>one-day</code><br/><span class="label svelte-1op6c6">date moves by one day, not a month flip</span></td><td>5</td><td>5</td><td class="small svelte-1op6c6">email ×3 · app ×2</td><td class="small svelte-1op6c6">2026-04-02 → 2026-10-04</td><td><!--[0--><a href="https://github.com/phillip-hirsch/mega-s01e03-what-it-shows/issues/3">issue #3</a><!--]--></td></tr><!--]--></tbody></table><!----> <p>Counts are unique reports. The export repeats some of them across pages, so they are counted once by id.</p> <h2>parser: the shared parser reads dates month first</h2> <p>Every product reads dates through one shared parser, and it reads month first. All of our tenants
+one now has its own ticket.<!----></aside><!----> <h2>The split</h2> <p class="sum svelte-1op6c6"><strong>412</strong> reports in #4471 · <strong>3</strong> problems <!--[-1--><!--]--></p> <table><thead><tr><th>problem</th><th>reports</th><th>tenants</th><th>came in by</th><th>seen</th><th>ticket</th></tr></thead><tbody><!--[--><tr><td><code>parser</code><br/><span class="label svelte-1op6c6">shared parser reads day-first dates month first</span></td><td>379</td><td>11</td><td class="small svelte-1op6c6">app ×204 · email ×150 · form ×25</td><td class="small svelte-1op6c6">2026-04-01 → 2026-10-04</td><td><!--[0--><a href="https://github.com/phillip-hirsch/mega-s01e03-what-it-shows/issues/1">issue #1</a><!--]--></td></tr><tr><td><code>hint</code><br/><span class="label svelte-1op6c6">booking-v3 form hints MM/DD/YYYY to day-first tenants</span></td><td>33</td><td>3</td><td class="small svelte-1op6c6">form ×33</td><td class="small svelte-1op6c6">2026-04-17 → 2026-09-22</td><td><!--[0--><a href="https://github.com/phillip-hirsch/mega-s01e03-what-it-shows/issues/2">issue #2</a><!--]--></td></tr><tr><td><code>one-day</code><br/><span class="label svelte-1op6c6">date moves by one day, not a month flip</span></td><td>5</td><td>5</td><td class="small svelte-1op6c6">email ×3 · app ×2</td><td class="small svelte-1op6c6">2026-04-02 → 2026-10-04</td><td><!--[0--><a href="https://github.com/phillip-hirsch/mega-s01e03-what-it-shows/issues/3">issue #3</a><!--]--></td></tr><!--]--></tbody></table> <!--[0--><p class="small svelte-1op6c6">The 5 <code>one-day</code> reports are counted the desk's way: filed under <code>parser</code> by tenant, and listed again in their own row.</p><!--]--><!----> <p>Counts are unique reports. The export repeats some of them across pages, so they are counted once by id.</p> <h2>parser: the shared parser reads dates month first</h2> <p>Every product reads dates through one shared parser, and it reads month first. All of our tenants
 write the day first, so any date where both numbers are 12 or less comes out with day and month
 swapped: 2 December becomes 12 February. This comes in through the app, by email, and through
 booking-v2 forms. It is what #4471 says it is.</p> <h2>hint: booking-v3 prints the wrong format under its date field</h2> <p>booking-v3 prints <code>MM/DD/YYYY</code> under the date field. People type what the hint tells them, month
@@ -45,16 +45,16 @@ by cause, not by subject.</li> <li>When a cause gets a fix, close only the repor
 			
 			<script>
 				{
-					__sveltekit_1feakgv = {
+					__sveltekit_1f6i3rt = {
 						base: new URL("../../..", location).pathname.slice(0, -1),
-						version: "1793240126656"
+						version: "1793240261210"
 					};
 
 					const element = document.currentScript.parentElement;
 
 					import("../../../_app/immutable/entry/start.CH5w6lId.js").then(async (kit) => {
-						kit.init(__sveltekit_1feakgv);
-						const app = await import("../../../_app/immutable/entry/app.DJuajS4U.js");
+						kit.init(__sveltekit_1f6i3rt);
+						const app = await import("../../../_app/immutable/entry/app.CDCAZ6tS.js");
 						kit.start(app, element, {
 							node_ids: [0, 5],
 							data: [null,null],

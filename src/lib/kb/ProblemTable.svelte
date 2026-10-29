@@ -3,12 +3,15 @@
   import notes from '#lib/data/desk-notes.json';
   import { type Report } from '#lib/kb/causes';
   import { tenantOf } from '#lib/kb/locales';
-  import { PROBLEM_LABEL, splitTicket, type Problem } from '#lib/kb/problems.ts';
+  import { mergedInto, PROBLEM_LABEL, splitTicket, type Problem } from '#lib/kb/problems.ts';
 
   let { ticket, tickets = {} }: { ticket: number; tickets?: Partial<Record<Problem, string>> } = $props();
 
   const groups = $derived(splitTicket(reports as Report[], ticket, tenantOf, notes.oneDayMove));
-  const total = $derived(groups.reduce((n, g) => n + g.reports.length, 0));
+  const total = $derived(mergedInto(reports as Report[], ticket).length);
+  const oneDay = $derived(groups.find((g) => g.problem === 'one-day'));
+  const filedAs = (ids: string[]) =>
+    groups.filter((g) => g.problem !== 'one-day' && g.reports.some((r) => ids.includes(r.id))).map((g) => g.problem).join(', ');
   const unplaced = $derived(groups.find((g) => g.problem === 'unplaced')?.reports.length ?? 0);
   const channels = (c: Record<string, number>) =>
     Object.entries(c)
@@ -40,6 +43,13 @@
     {/each}
   </tbody>
 </table>
+
+{#if oneDay}
+  <p class="small">
+    The {oneDay.reports.length} <code>one-day</code> reports are counted the desk's way: filed under
+    <code>{filedAs(oneDay.reports.map((r) => r.id))}</code> by tenant, and listed again in their own row.
+  </p>
+{/if}
 
 <style>
   .sum { font-size: 1.1rem; }
